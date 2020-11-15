@@ -4,5 +4,8 @@
   "main": "src/index",
   "repository": "https://github.com/notmanzl/Zecas-Rewritten",
   "author": "notmanzl",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.4.1"
+  }
 }
