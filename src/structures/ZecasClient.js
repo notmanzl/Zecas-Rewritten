@@ -43,8 +43,8 @@ module.exports = class ZecasClient extends Client {
         this.prefix = options.prefix;
     }
 
-    async login(token = this.token) {
-        super.login(token);
+    async start(token = this.token) {
+        super.start(token);
     }
 
 };
