@@ -1,0 +1,8 @@
+{
+  "name": "Zecas-Rewritten",
+  "version": "1.0.0",
+  "main": "src/index",
+  "repository": "https://github.com/notmanzl/Zecas-Rewritten",
+  "author": "notmanzl",
+  "license": "MIT"
+}
