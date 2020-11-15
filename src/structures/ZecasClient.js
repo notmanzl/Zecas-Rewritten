@@ -18,7 +18,7 @@ module.exports = class ZecasClient extends Client {
 
             if (!message.guild || message.author.bot) return;
 
-            if (message.content.match(mentionRegex)) message.channel.send(`O meu prefixo para ${message.guild.name} is \`${this.prefix}\`.`);
+            if (message.content.match(mentionRegex)) message.channel.send(`O meu prefixo para ${message.guild.name} é \`${this.prefix}\`.`);
 
             const prefix = message.content.match(mentionRegexPrefix) ?
                 message.content.match(mentionRegexPrefix)[0] : this.prefix;
