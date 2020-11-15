@@ -1,1 +1,5 @@
 config.json
+
+# Packages
+node_modules/
+yarn.lock
