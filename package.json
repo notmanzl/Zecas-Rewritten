@@ -6,6 +6,9 @@
   "author": "notmanzl",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^12.4.1"
+    "discord.js": "^12.5.0",
+    "glob": "^7.1.6",
+    "path": "^0.12.7",
+    "util": "^0.12.3"
   }
 }
