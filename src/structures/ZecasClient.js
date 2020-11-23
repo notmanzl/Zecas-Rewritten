@@ -1,4 +1,5 @@
-const { Client } = require('discord.js');
+const { Client, Collection } = require('discord.js');
+const Util = require('./util.js');
 
 module.exports = class ZecasClient extends Client {
 
@@ -7,6 +8,12 @@ module.exports = class ZecasClient extends Client {
             disableMentions: 'everyone'
         });
         this.validate(options);
+
+        this.commands = new Collection();
+
+        this.aliases = new Collection();
+
+        this.utils = new Util(this);
 
         this.once('ready', () => {
             console.log(`Loggado como ${this.user.username}!`);
@@ -26,8 +33,9 @@ module.exports = class ZecasClient extends Client {
 
             const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
-            if (cmd.toLowerCase() === 'hello') {
-                message.channel.send('boas mpt');
+            const command = this.commands.get(cmd.toLowerCase()) || this.commands.get(this.aliases.get(cmd.toLowerCase()));
+            if (command) {
+                command.run(message, args);
             }
         });
     }
@@ -44,7 +52,8 @@ module.exports = class ZecasClient extends Client {
     }
 
     async start(token = this.token) {
-        super.start(token);
+        this.utils.loadCommands();
+        super.login(token);
     }
 
 };

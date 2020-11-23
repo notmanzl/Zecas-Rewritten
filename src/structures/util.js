@@ -12,7 +12,7 @@ module.exports = class Util {
     isClass(input) {
         return typeof input === 'function' && 
         typeof input.prototype === 'object' &&
-        input.toSting().substring(0, 5) === 'class';
+        input.toString().substring(0, 5) === 'class';
     }
 
     get directory() {
