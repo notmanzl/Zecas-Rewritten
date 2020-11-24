@@ -30,8 +30,9 @@ module.exports = class ZecasClient extends Client {
             const prefix = message.content.match(mentionRegexPrefix) ?
                 message.content.match(mentionRegexPrefix)[0] : this.prefix;
 
+            if (!message.content.startsWith(this.prefix)) return;
 
-            const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
+            const [cmd,...args] = message.content.slice(this.prefix.length).trim().split(/ +/g);
 
             const command = this.commands.get(cmd.toLowerCase()) || this.commands.get(this.aliases.get(cmd.toLowerCase()));
             if (command) {
