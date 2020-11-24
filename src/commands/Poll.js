@@ -19,10 +19,11 @@ module.exports = class extends Command {
             .setDescription(description)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
             .setFooter("Poll criada por " + message.author.username, message.author.displayAvatarURL({ dynamic: true }));
-        message.channel.send(embed).then(function (message) {
-            message.react(message.guild.emojis.cache.get("759037020521103360"));
-            message.react(message.guild.emojis.cache.get("759037020659515402"));
-        });
+
+        const msg = await message.channel.send(embed);
+        await msg.react(message.guild.emojis.cache.get("759037020521103360"));
+        await msg.react(message.guild.emojis.cache.get("759037020659515402"));
+
     }
 
 }
