@@ -1,10 +1,11 @@
-const Command = require('./../structures/Command');
+const Command = require('./../structures/command');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
+            aliases: ['votacao'],
             description: 'Cria uma poll'
         });
     }
