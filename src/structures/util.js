@@ -38,4 +38,13 @@ module.exports = class Util {
         })
     }
 
+    trimArray(arr, maxlen = 10) {
+        if(arr.length > maxlen) {
+            const len = arr.length - maxlen;
+            arr = arr.slice(0, maxlen);
+            arr.push(`Mais ${len}...`)
+        }
+        return arr;
+    }
+
 }
