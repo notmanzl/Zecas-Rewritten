@@ -54,7 +54,7 @@ module.exports = class extends Command {
             `**• ID:** ${message.guild.id}`,
             `**• Dono:** ${message.guild.owner.user.tag} (${message.guild.ownerID})`,
             `**• Região:** ${regions[message.guild.region]}`,
-            `**• Nível de Boost:** ${message.guild.premiumTier ? `Tier ${message.guild.premiumTier}` : 'None'}`,
+            `**• Nível de Boost:** ${message.guild.premiumTier ? `Nível ${message.guild.premiumTier}` : 'Nenhum'}`,
             `**• Filtro Explícito:** ${filterLevels[message.guild.explicitContentFilter]}`,
             `**• Nível de Verificação:** ${verificationLevels[message.guild.verificationLevel]}`,
             `**• Data de Criação:** ${moment(message.guild.createdTimestamp).format('LT')} ${moment(message.guild.createdTimestamp).format('LL')} ${moment(message.guild.createdTimestamp).fromNow()}`,
@@ -80,7 +80,7 @@ module.exports = class extends Command {
             `**• Offline:** ${members.filter(member => member.presence.status === 'offline').size}`,
             '\u200b'
         ])
-        .addField(`Roles [${roles.length -1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles) : 'None')
+        .addField(`Roles [${roles.length -1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles) : 'Nenhum')
         .setTimestamp();
     message.channel.send(embed);
     }
