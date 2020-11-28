@@ -18,7 +18,7 @@ module.exports = class extends Command {
             .setColor(message.member.displayColor)
             .setTitle("Poll  ⠀⠀⠀⠀⠀⠀⠀⠀")
             .setDescription(description)
-            .setThumbnail(message.guild.iconURL({ dynamic: true }))
+            .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
             .setFooter("Poll criada por " + message.author.username, message.author.displayAvatarURL({ dynamic: true }));
 
         const msg = await message.channel.send(embed);
