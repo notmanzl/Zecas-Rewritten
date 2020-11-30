@@ -12,7 +12,7 @@ module.exports = class extends Command {
     }
 
     async run(message) {
-        message.channel.send(`Ligado à \`${ms(this.client.uptime, { long : true })}\``);
+        message.channel.send(`Ligado há \`${ms(this.client.uptime, { long : true })}\``);
     }
 
 }
