@@ -15,6 +15,8 @@ module.exports = class ZecasClient extends Client {
 
         this.utils = new Util(this);
 
+        this.owners = options.owners;
+
         this.once('ready', () => {
             console.log(`Loggado como ${this.user.username}!`);
         })

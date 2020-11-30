@@ -36,7 +36,7 @@ module.exports = class extends Command {
         } else {
             embed.setDescription([
                 `Comandos disponíveis.`,
-                `Prefixo: ${this.client.prefix}`,
+                `Prefixo: \`${this.client.prefix}\``,
                 `Parámetros do commando: \`<>\` é obrigatório e \`[]\` é opcional.`
             ]);
             let categories;
