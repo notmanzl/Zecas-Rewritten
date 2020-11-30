@@ -6,7 +6,7 @@ module.exports = class Command{
         this.aliases = options.aliases || [];
         this.description = options.description || "Sem descrição.";
         this.category = options.category || "Misc";
-        this.usage = options.usage ||  "Uso não fornecido.";
+        this.usage = `${this.name} ${options.usage || ''}`.trim();
     }
 
     async run(message, args){

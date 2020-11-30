@@ -6,6 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['ms'],
+            category: 'Utilidade',
             description: 'Mostra a latência do bot'
         });
     }

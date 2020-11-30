@@ -6,6 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['ut'],
+            category: 'Informação',
             description: 'Diz à quanto tempo o bot está ligado'
         });
     }
