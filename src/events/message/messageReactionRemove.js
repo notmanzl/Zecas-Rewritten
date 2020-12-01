@@ -80,6 +80,7 @@ module.exports = class extends Event {
                             member.guild.roles.cache.find(role => role.name === "Phasmophobia")
                         );
                     }
+                    console.log(`Removido ${messageReaction.emoji.name} a alguém.`)
                 }
             }
         }
