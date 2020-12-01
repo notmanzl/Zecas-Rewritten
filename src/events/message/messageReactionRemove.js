@@ -74,6 +74,12 @@ module.exports = class extends Event {
                             member.guild.roles.cache.find(role => role.name === "Cyberpunk")
                         );
                     }
+                    //phasmo
+                    if (messageReaction.emoji.id == 777599465888284702) {
+                        member.roles.remove(
+                            member.guild.roles.cache.find(role => role.name === "Phasmophobia")
+                        );
+                    }
                 }
             }
         }

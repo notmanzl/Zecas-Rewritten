@@ -43,6 +43,8 @@ module.exports = class extends Event {
                 message.react(message.guild.emojis.cache.get("771060542918885436"));
                 //cyberpunk
                 message.react(message.guild.emojis.cache.get("771060089556697128"));
+                //phasmo
+                message.react(message.guild.emojis.cache.get("777599465888284702"));
             });
 
     }
