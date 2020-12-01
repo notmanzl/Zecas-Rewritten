@@ -3,8 +3,8 @@ const Event = require('../../structures/event');
 module.exports = class extends Event {
 
     async run(message) {
-        const mentionRegex = RegExp(`^<@!${this.client.user.id}>$`);
-        const mentionRegexPrefix = RegExp(`^<@!${this.client.user.id}> `);
+        const mentionRegex = RegExp(`^<@!?${this.client.user.id}>$`);
+        const mentionRegexPrefix = RegExp(`^<@!?${this.client.user.id}> `);
 
         if (!message.guild || message.author.bot) return;
 

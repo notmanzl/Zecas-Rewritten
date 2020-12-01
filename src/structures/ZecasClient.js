@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js');
+const { Client, Collection, Permissions } = require('discord.js');
 const Util = require('./util.js');
 
 module.exports = class ZecasClient extends Client {
@@ -18,7 +18,6 @@ module.exports = class ZecasClient extends Client {
         this.utils = new Util(this);
 
         this.owners = options.owners;
-
     }
 
     validate(options) {
