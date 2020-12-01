@@ -8,6 +8,8 @@
   "dependencies": {
     "discord.js": "^12.5.0",
     "glob": "^7.1.6",
+    "jquery": "^3.5.1",
+    "jsdom": "^16.4.0",
     "moment": "^2.29.1",
     "ms": "^2.1.2",
     "path": "^0.12.7",
