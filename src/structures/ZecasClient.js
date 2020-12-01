@@ -13,34 +13,12 @@ module.exports = class ZecasClient extends Client {
 
         this.aliases = new Collection();
 
+        this.events = new Collection();
+
         this.utils = new Util(this);
 
         this.owners = options.owners;
 
-        this.once('ready', () => {
-            console.log(`Loggado como ${this.user.username}!`);
-        })
-
-        this.on('message', async (message) => {
-            const mentionRegex = RegExp(`^<@!${this.user.id}>$`);
-            const mentionRegexPrefix = RegExp(`^<@!${this.user.id}> `);
-
-            if (!message.guild || message.author.bot) return;
-
-            if (message.content.match(mentionRegex)) message.channel.send(`O meu prefixo para ${message.guild.name} é \`${this.prefix}\`.`);
-
-            const prefix = message.content.match(mentionRegexPrefix) ?
-                message.content.match(mentionRegexPrefix)[0] : this.prefix;
-
-            if (!message.content.startsWith(this.prefix)) return;
-
-            const [cmd,...args] = message.content.slice(this.prefix.length).trim().split(/ +/g);
-
-            const command = this.commands.get(cmd.toLowerCase()) || this.commands.get(this.aliases.get(cmd.toLowerCase()));
-            if (command) {
-                command.run(message, args);
-            }
-        });
     }
 
     validate(options) {
@@ -56,6 +34,7 @@ module.exports = class ZecasClient extends Client {
 
     async start(token = this.token) {
         this.utils.loadCommands();
+        this.utils.loadEvents();
         super.login(token);
     }
 
