@@ -20,11 +20,11 @@ module.exports = class extends Command {
             .setTimestamp();
 
         if (command) {
-            const cmd = this.client.commands.get(command) || this.client.commands.get(command) || this.client.commands.get(this.aliases.get(command));
+            const cmd = this.client.commands.get(command) || this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
 
             if (!cmd) return message.channel.send(`O comando \`${command}\` não existe.`)
 
-            embed.setAuthor(`Ajuda para  ${this.client.utils.capitalise(cmd.name)}`, this.client.user.displayAvatarURL());
+            embed.setAuthor(`Ajuda para ${this.client.utils.capitalise(cmd.name)}`, this.client.user.displayAvatarURL());
             embed.setDescription([
                 `**• Alias:** ${cmd.aliases.length ? cmd.aliases.map(alias => `\`${alias}\``).join(' ') : 'Nenhum alias'}`,
                 `**• Descrição:** ${cmd.description}`,
