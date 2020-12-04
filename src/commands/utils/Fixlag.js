@@ -12,11 +12,9 @@ module.exports = class extends Command {
 
     async run(message) {
         if (message.guild.region == "europe") {
-            message.guild.setRegion("us-east");
-            message.channel.send(`Região mudada para \`${message.guild.region}\`.`);
+            message.guild.setRegion("us-east").then(updated => message.channel.send(`Região mudada para \`${updated.region}\`.`));
           } else {
-            message.guild.setRegion("europe");
-            message.channel.send(`Região mudada para \`${message.guild.region}\`.`);
+            message.guild.setRegion("europe").then(updated => message.channel.send(`Região mudada para \`${updated.region}\`.`));;
           }
     }
 
