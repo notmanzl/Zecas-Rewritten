@@ -11,6 +11,7 @@ module.exports = class extends Event {
             .setAuthor(message.author.tag, this.client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setTitle('Mensagem Apagada')
             .setThumbnail(message.member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
+            .setTimestamp()
             .setDescription([
                 `**• ID:** ${message.id}`,
                 `**• Channel:** ${message.channel}`,
