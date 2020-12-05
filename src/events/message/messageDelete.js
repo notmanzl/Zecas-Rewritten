@@ -10,6 +10,7 @@ module.exports = class extends Event {
             .setColor(message.member.displayColor)
             .setAuthor(message.author.tag, this.client.user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setTitle('Mensagem Apagada')
+            .setThumbnail(message.member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setDescription([
                 `**• ID:** ${message.id}`,
                 `**• Channel:** ${message.channel}`,
