@@ -18,7 +18,7 @@ module.exports = class extends Command {
         var maxuses = 1;
         if (parseInt(args[0]) <= 5) {
             maxuses = args[0];
-        } else {
+        } else if(args[0]) {
             return message.channel.send("Não podes criar invites com mais de 5 usos.");
         }
 
