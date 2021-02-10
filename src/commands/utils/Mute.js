@@ -19,11 +19,11 @@ module.exports = class extends Command {
         if (message.member.hasPermission("MUTE_MEMBERS")) {
             if(member.roles.cache.has(muterole.id) || member.voice.serverMute) {
                 member.roles.remove(muterole);
-                member.setMute(false);
+                member.voice.setMute(false);
                 return message.channel.send(`${member} foi **unmuted**.`);
             } else {
                 member.roles.add(muterole);
-                member.setMute(true);
+                member.voice.setMute(true);
                 return message.channel.send(`${member} foi **muted**.`);
             }
         } else return message.channel.send("Não tens permissão para isto.");
