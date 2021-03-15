@@ -1,6 +1,7 @@
 const Command = require('../../structures/command');
 const { MessageEmbed } = require('discord.js');
 var jsdom = require("jsdom");
+var countryFlagColors = require("country-flag-colors");
 const { JSDOM } = jsdom;
 const { window } = new JSDOM();
 var $ = (jQuery = require("jquery")(window));
@@ -27,6 +28,13 @@ module.exports = class extends Command {
               $.getJSON("https://corona.lmao.ninja/v3/covid-19/countries/" + argument, function(
                 json
               ) {
+                var flagcolorsarr = (countryFlagColors.find(f => f.name === json.country).colors);
+                if(flagcolorsarr[0].length === 4) {
+                  flagcolorsarr[0] = flagcolorsarr[0].split("").map((item)=>{ 
+                    if(item == "#"){return item} 
+                        return item + item; 
+                  }).join("") 
+                }
                 var newcritical = json.critical - window.yesterdaycritical;
                 if(Math.sign(newcritical) == 1) {
                   var newcriticalsign = "+";
@@ -53,7 +61,9 @@ module.exports = class extends Command {
                     message.channel.send("**É provável que os dados de hoje para este país ainda não tenham sido lançados.**");
                 }
                 const embed = new MessageEmbed()
-                  .setAuthor(json.country + ": COVID-19")
+                  .setURL("https://www.worldometers.info/coronavirus/country/" + json.country)
+                  .setColor(flagcolorsarr[0])
+                  .setTitle(json.country + ": COVID-19")
                   .setFooter("Atualizado", json.countryInfo.flag)
                   .setTimestamp(new Date(json.updated))
                   .setThumbnail(json.countryInfo.flag)
@@ -77,7 +87,7 @@ module.exports = class extends Command {
                     true
                   )
                   .addField(
-                    "Casos hoje",
+                    "Casos Hoje",
                     json.todayCases +
                       " (+" +
                       (
@@ -89,7 +99,7 @@ module.exports = class extends Command {
                     true
                   )
                   .addField(
-                    "Mortes hoje",
+                    "Mortes Hoje",
                     json.todayDeaths +
                       " (+" +
                       (
@@ -101,7 +111,7 @@ module.exports = class extends Command {
                     true
                   )
                   .addField(
-                    "Recuperados hoje",
+                    "Recuperados Hoje",
                     json.todayRecovered +
                       " (+" +
                       (
@@ -116,8 +126,8 @@ module.exports = class extends Command {
                   .addField("Cuidados Intensivos", json.critical + " (" + newcriticalsign + newcritical + ")", true)
                   .addField("Testes (Aprox.)", json.tests, true)
                   .addField(
-                    "Casos p/ M de habitantes",
-                    json.casesPerOneMillion,
+                    "Ativos p/ M de habitantes",
+                    json.activePerOneMillion,
                     true
                   )
                   .addField(

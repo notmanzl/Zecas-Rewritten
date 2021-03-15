@@ -6,6 +6,7 @@
   "author": "notmanzl",
   "license": "MIT",
   "dependencies": {
+    "country-flag-colors": "0.0.3",
     "discord.js": "^12.5.0",
     "glob": "^7.1.6",
     "jquery": "^3.5.1",
