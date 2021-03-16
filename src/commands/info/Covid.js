@@ -28,13 +28,16 @@ module.exports = class extends Command {
               $.getJSON("https://corona.lmao.ninja/v3/covid-19/countries/" + argument, function(
                 json
               ) {
-                var flagcolorsarr = (countryFlagColors.find(f => f.name === json.country).colors);
+                var flagcolorsarr = [];
+                if(countryFlagColors.find(f => f.name === json.country)) {
+                flagcolorsarr = (countryFlagColors.find(f => f.name === json.country).colors);
                 if(flagcolorsarr[0].length === 4) {
                   flagcolorsarr[0] = flagcolorsarr[0].split("").map((item)=>{ 
                     if(item == "#"){return item} 
                         return item + item; 
                   }).join("") 
-                }
+                } 
+              } else flagcolorsarr[0] = "#ffffff";
                 var newcritical = json.critical - window.yesterdaycritical;
                 if(Math.sign(newcritical) == 1) {
                   var newcriticalsign = "+";
@@ -60,8 +63,9 @@ module.exports = class extends Command {
                 if(json.todayCases == 0) {
                     message.channel.send("**É provável que os dados de hoje para este país ainda não tenham sido lançados.**");
                 }
+                var countrynospaces = json.country.replace(/\s/g, '');
                 const embed = new MessageEmbed()
-                  .setURL("https://www.worldometers.info/coronavirus/country/" + json.country)
+                  .setURL("https://www.worldometers.info/coronavirus/country/" + countrynospaces)
                   .setColor(flagcolorsarr[0])
                   .setTitle(json.country + ": COVID-19")
                   .setFooter("Atualizado", json.countryInfo.flag)
