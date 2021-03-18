@@ -38,6 +38,7 @@ module.exports = class extends Command {
                         !findRole(message.guild, "#" + this.client.utils.capitalise(ccolor)) &&
                         !findRole(message.guild, "#" + this.client.utils.capitalise(ccolor) + "$")
                     ) {
+                    if(!(message.guild.roles.cache.find(role => role.hexColor.toLowerCase() === ("#" + ccolor.toLowerCase())))) { 
                         message.guild
                             .roles.create(
                                 {
@@ -47,6 +48,10 @@ module.exports = class extends Command {
                                     }
                                 })
                             .then(role => message.member.roles.add(role));
+                        } else {
+                            message.channel.send("Esta cor está a ser utilizada por um rank do servidor.");
+                            return;
+                        }
                     } else {
                         if (findRole(message.guild, "#" + this.client.utils.capitalise(ccolor))) {
                             message.member.roles.add(
@@ -73,7 +78,10 @@ module.exports = class extends Command {
                     message.channel.send(
                         "Ficaste com a cor `" + ccolor + "`."
                     );
-                } else {
+                } else if(message.guild.roles.cache.find(role => role.hexColor === ccolor.substring(1))) {
+                    console.log("ya");
+                } 
+                else {
                     message.channel.send("Cor inválida.");
                 }
             } else {
