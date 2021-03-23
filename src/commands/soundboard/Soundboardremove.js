@@ -2,12 +2,6 @@ const Command = require('../../structures/command');
 var path = require("path");
 const fs = require('fs');
 const directoryPath = path.join(__dirname, "..", "..", "..", "assets", "audio");
-let request = require(`request`);
-function download(url, filename) {
-    request.get(url)
-        .on('error', console.error)
-        .pipe(fs.createWriteStream(path.join(__dirname, "..", "..", "..", "assets", "audio", filename + ".mp3")));
-}
 
 module.exports = class extends Command {
 
