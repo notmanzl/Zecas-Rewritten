@@ -8,7 +8,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['sfx', 'sound'],
-            category: 'Fun',
+            category: 'Soundboard',
             description: 'Toca um som no voice channel',
             usage: '<Som>'
         });
@@ -24,6 +24,7 @@ module.exports = class extends Command {
                     });
                     dispatcher.on('start', () => {
                         console.log(args[0] + ' a tocar!');
+                        message.channel.send("A tocar ``" + args[0] + "`` em ``" + message.member.voice.channel.name + "``.");
                     });
 
                     dispatcher.on('finish', () => {
