@@ -20,7 +20,7 @@ module.exports = class extends Command {
             if (args[0]) {
                 if (args[1]) {
                     if (fs.existsSync(path.join(__dirname, "..", "..", "..", "assets", "audio", args[0] + ".mp3"))) {
-                        fs.rename(path.join(__dirname, "..", "..", "..", "assets", "audio", args[0] + ".mp3"), path.join(__dirname, "..", "..", "..", "assets", "audio", args[1] + ".mp3"));
+                        fs.renameSync(path.join(__dirname, "..", "..", "..", "assets", "audio", args[0] + ".mp3"), path.join(__dirname, "..", "..", "..", "assets", "audio", args[1] + ".mp3"));
                         message.channel.send("O som ``" + args[0] + "`` foi mudado para ``" + args[1] + "``.");
                     } else {
                         message.channel.send("Esse som não existe.");
