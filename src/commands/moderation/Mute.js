@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['mutar', 'mu', 'unmute'],
-            category: 'Utilidade',
+            category: 'Moderação',
             description: 'Dá mute/unmute a alguém',
             usage: '<Membro>',
             args : true

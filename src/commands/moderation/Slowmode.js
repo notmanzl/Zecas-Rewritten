@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ['slow', 'sm'],
-            category: 'Utilidade',
+            category: 'Moderação',
             description: 'Ativa ou desativa o Slowmode',
             usage: '[tempo]'
         });
