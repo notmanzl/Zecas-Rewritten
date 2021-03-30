@@ -17,7 +17,7 @@ module.exports = class extends Command {
     async run(message, ...args) {
         exec(args[0].join(' '), (error, stdout) =>{
             const response = stdout || error;
-            message.channel.send(response, {split : true, code : true});
+            message.channel.send(`\`\`\`bash\n${response}\`\`\``, {split : true});
         })
     }
 }

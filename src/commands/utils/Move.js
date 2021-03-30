@@ -38,7 +38,14 @@ module.exports = class extends Command {
             "` para `" +
             targetchannelname +
             "`."
-        );
+        ).then(msg => {
+            if (!message.channel.name.includes('spam')) {
+                msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
+                    setTimeout(() => msg.delete(), 10000);
+                })
+                setTimeout(() => message.delete(), 10000);
+            }
+        });
 
     }
 

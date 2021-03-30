@@ -139,7 +139,14 @@ module.exports = class extends Command {
                     json.testsPerOneMillion,
                     true
                   );
-                message.channel.send(embed);
+                message.channel.send(embed).then(msg => {
+                  if (!message.channel.name.includes('spam')) {
+                      msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
+                          setTimeout(() => msg.delete(), 10000);
+                      })
+                      setTimeout(() => message.delete(), 10000);
+                  }
+              });
                 return;
               });
         } else {
@@ -175,7 +182,14 @@ module.exports = class extends Command {
                   .addField("Testes (Aprox.)", json.tests, true)
                   .addField("Países Afetados", json.affectedCountries, true);
           
-                message.channel.send(embed);
+                message.channel.send(embed).then(msg => {
+                  if (!message.channel.name.includes('spam')) {
+                      msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
+                          setTimeout(() => msg.delete(), 10000);
+                      })
+                      setTimeout(() => message.delete(), 10000);
+                  }
+              });
               });
         }
     }
