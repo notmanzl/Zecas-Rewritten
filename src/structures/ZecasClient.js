@@ -1,5 +1,6 @@
 const { Client, Collection, Permissions } = require('discord.js');
 const Util = require('./util.js');
+const { MongoClient } = require('mongodb');
 
 module.exports = class ZecasClient extends Client {
 
@@ -29,11 +30,16 @@ module.exports = class ZecasClient extends Client {
         if (!options.prefix) throw new Error('Sem prefixo na configuração.');
         if (typeof options.prefix !== 'string') throw new TypeError('O prefixo não é uma string.');
         this.prefix = options.prefix;
+        
+        if (!options.uri) throw new Error('You must pass a mongoDB uri for the client.');
+        if (typeof options.uri !== 'string') throw new TypeError('MongoDB uri should be a type of String.');
+        this.mongoDBuri = options.uri;
     }
 
-    async start(token = this.token) {
+    async start(client, token = this.token){
         this.utils.loadCommands();
         this.utils.loadEvents();
+        this.mongoDB = await new MongoClient.connect(this.mongoDBuri, { useNewUrlParser: true, useUnifiedTopology: true }).then().catch();
         super.login(token);
     }
 

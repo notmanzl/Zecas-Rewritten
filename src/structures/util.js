@@ -75,13 +75,11 @@ module.exports = class Util {
         return this.client.owners.includes(target.id)
     }
 
-    deletespam(message,botmessage){
-        if(!message.channel.name.includes('spam')) {
-            const deletemsg = message.channel.send("Este comando vai ser apagado.");
-            setTimeout(() => deletemsg.delete(), 10000);
-            setTimeout(() => botmessage.delete(), 10000);
-            setTimeout(() => message.delete(), 10000);
-        }
+    getLevel(experience){
+        return Math.floor(Math.sqrt(experience)/10);
     }
 
+    getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
 }
