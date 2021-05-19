@@ -13,7 +13,7 @@ async function voiceXP(client) {
 
                     const query = await client.mongoDB.db('Discord').collection('experience').findOne({ guildId: member.guild.id, userId: member.id });
 
-                    const xpGained = (client.utils.getRndInteger(5, 12)/10)*(1+(channel.members.filter(member => !member.user.bot && !member.voice.mute && !member.voice.deaf).size/10));
+                    const xpGained = (client.utils.getRndInteger(2, 10)/10)*(1+(channel.members.filter(member => !member.user.bot && !member.voice.mute && !member.voice.deaf).size/10));
 
                     const experience = query === null ? xpGained : query.experience + xpGained;
 
