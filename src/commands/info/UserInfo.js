@@ -32,6 +32,10 @@ module.exports = class extends Command {
     async run(message, [target]) {
         const member = message.mentions.members.last() || message.guild.members.cache.get(target) || message.member;
 
+        const userData = await this.client.mongoDB.db('Discord').collection('experience').findOne({guildId : message.guild.id , userId :member.user.id});
+        const level = this.client.utils.getLevel(userData.experience);
+        const rankP = await this.client.utils.getRank(message, member);
+
         const roles = member.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString()).slice(0, -1);
         const userFlags = member.user.flags.toArray();
         const embed = new MessageEmbed()
@@ -50,7 +54,13 @@ module.exports = class extends Command {
                 `**• Role Principal:** ${member.roles.highest.id === message.guild.id ? 'Nenhum' : member.roles.highest.name}`,
                 `**• Juntou-se a:** ${moment(member.joinedAt).format('LL LTS')}`,
                 `**• Role:** ${member.roles.hoist ? member.roles.hoist.name : 'Nenhum'}`,
-                `**• Roles:** [${roles.length}]: ${roles.length < 10 ? roles.join(', ') : roles.length > 9 ? this.client.utils.trimArray(roles) : 'Nenhum'}`
+                `**• Roles:** [${roles.length}]: ${roles.length < 10 ? roles.join(', ') : roles.length > 9 ? this.client.utils.trimArray(roles) : 'Nenhum'}`,
+                `\u200b`
+            ])
+            .addField('XP', [
+                `**• XP Total:** ${Math.floor(userData.experience)}`,
+                `**• Nível:** ${level}`,
+                `**• Rank:** ${rankP}`
             ])
             .setTimestamp()
             .setFooter(`${message.guild.name}`, message.guild.iconURL({ dynamic: true }));

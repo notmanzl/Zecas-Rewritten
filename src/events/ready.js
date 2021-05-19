@@ -13,7 +13,7 @@ async function voiceXP(client) {
 
                     const query = await client.mongoDB.db('Discord').collection('experience').findOne({ guildId: member.guild.id, userId: member.id });
 
-                    const xpGained = client.utils.getRndInteger(5, 10)/10;
+                    const xpGained = client.utils.getRndInteger(5, 20)/10;
 
                     const experience = query === null ? xpGained : query.experience + xpGained;
 
@@ -34,8 +34,8 @@ async function voiceXP(client) {
                     if (query === null) return;
                     if (client.utils.getLevel(experience) > client.utils.getLevel(query.experience)) return member.send(`Subiste para o nível ${client.utils.getLevel(experience)} em ${member.guild.name}!`);
                     
-                    console.log("[VoiceXP] " + member.user.username + experience);
-                    console.log("[VoiceXP] " + member.user.username + xpGained);
+                    console.log("[VoiceXP] " + member.user.username + " - " + experience);
+                    console.log("[VoiceXP] " + member.user.username + " - " + xpGained);
 
                 })
             }

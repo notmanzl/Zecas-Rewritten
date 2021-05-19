@@ -82,4 +82,21 @@ module.exports = class Util {
     getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
+
+    getExperience(level){
+        return Math.pow(10 * (level), 2)
+    }
+
+    async getRank(message, member){
+        const query = await this.client.mongoDB.db('Discord').collection('experience').find({guildId : message.guild.id}).toArray();
+        
+
+        const sorted_query = query.sort(function(a,b) {return b.experience - a.experience});
+
+
+        for(let i = 0 ; i < sorted_query.length ; i++){
+            if(sorted_query[i].userId === member.user.id) return i + 1;
+        }
+        return
+    }
 }

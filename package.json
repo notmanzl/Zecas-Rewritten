@@ -7,15 +7,16 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.5.0",
+    "canvacord": "^5.1.0",
     "country-flag-colors": "0.0.3",
-    "discord.js": "^12.5.0",
+    "discord.js": "^12.5.3",
     "glob": "^7.1.6",
     "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "moment": "^2.29.1",
+    "mongodb": "^3.6.2",
     "ms": "^2.1.2",
     "path": "^0.12.7",
-    "mongodb": "^3.6.2",
     "util": "^0.12.3"
   }
 }
