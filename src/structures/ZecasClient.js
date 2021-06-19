@@ -1,4 +1,4 @@
-const { Client, Collection, Permissions } = require('discord.js');
+const { Client, Collection, Permissions, Intents } = require('discord.js');
 const Util = require('./util.js');
 const { MongoClient } = require('mongodb');
 
@@ -6,7 +6,7 @@ module.exports = class ZecasClient extends Client {
 
     constructor(options = {}) {
         super({
-            disableMentions: 'everyone'
+            disableMentions: 'everyone',  intents: Intents.ALL 
         });
         this.validate(options);
 

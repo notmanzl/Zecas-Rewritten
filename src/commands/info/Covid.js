@@ -14,10 +14,16 @@ module.exports = class extends Command {
       category: 'Informação',
       description: 'Mostra dados e estatísticas sobre o Coronavírus',
       usage: '[país]',
+      cmdoptions: [{
+				name: "país",
+				type: "STRING",
+				description: "País sobre o qual queres obter informação",
+				required: true,
+			}],
     });
   }
 
-  async run(message, args) {
+  async run(message, args, notspam) {
     let argument = args.join(' ');
     if (args.length) {
       $.getJSON("https://disease.sh/v3/covid-19/countries/" + argument + "?yesterday=true", function (
@@ -66,85 +72,75 @@ module.exports = class extends Command {
           .setFooter("Atualizado", json.countryInfo.flag)
           .setTimestamp(new Date(json.updated))
           .setThumbnail(json.countryInfo.flag)
-          .addField("Casos Confirmados", json.cases, true)
+          .addField("Casos Confirmados", json.cases.toString(), true)
           .addField(
             "Mortes",
-            json.deaths +
+            json.deaths.toString() +
             " (" +
-            ((parseInt(json.deaths) / parseInt(json.cases)) * 100).toFixed(2) +
+            ((parseInt(json.deaths) / parseInt(json.cases)) * 100).toFixed(2).toString() +
             "%)",
             true
           )
           .addField(
             "Recuperados",
-            json.recovered +
+            json.recovered.toString() +
             " (" +
             ((parseInt(json.recovered) / parseInt(json.cases)) * 100).toFixed(
               2
-            ) +
+            ).toString() +
             "%)",
             true
           )
           .addField(
             "Casos Hoje",
-            json.todayCases +
+            json.todayCases.toString() +
             " (+" +
             (
               (parseInt(json.todayCases) /
                 (parseInt(json.cases) - parseInt(json.todayCases))) *
               100
-            ).toFixed(2) +
+            ).toFixed(2).toString() +
             "%)",
             true
           )
           .addField(
             "Mortes Hoje",
-            json.todayDeaths +
+            json.todayDeaths.toString() +
             " (+" +
             (
               (parseInt(json.todayDeaths) /
                 (parseInt(json.deaths) - parseInt(json.todayDeaths))) *
               100
-            ).toFixed(2) +
+            ).toFixed(2).toString() +
             "%)",
             true
           )
           .addField(
             "Recuperados Hoje",
-            json.todayRecovered +
+            json.todayRecovered.toString() +
             " (+" +
             (
               (parseInt(json.todayRecovered) /
                 (parseInt(json.recovered) - parseInt(json.todayRecovered))) *
               100
-            ).toFixed(2) +
+            ).toFixed(2).toString() +
             "%)",
             true
           )
-          .addField("Casos Ativos", json.active + " (" + newactivesign + newactive + ")", true)
-          .addField("Cuidados Intensivos", json.critical + " (" + newcriticalsign + newcritical + ")", true)
-          .addField("Testes (Aprox.)", json.tests, true)
+          .addField("Casos Ativos", json.active.toString() + " (" + newactivesign.toString() + newactive.toString() + ")", true)
+          .addField("Cuidados Intensivos", json.critical.toString() + " (" + newcriticalsign.toString() + newcritical.toString() + ")", true)
+          .addField("Testes (Aprox.)", json.tests.toString(), true)
           .addField(
             "Ativos p/ M de habitantes",
-            json.activePerOneMillion,
+            json.activePerOneMillion.toString(),
             true
           )
           .addField(
             "Testes p/ M de habitantes",
-            json.testsPerOneMillion,
+            json.testsPerOneMillion.toString(),
             true
           );
-        message.channel.send(embed).then(msg => {
-          if (json.todayCases == 0) {
-            msg.edit(msg.content + "\n**É provável que os dados de hoje para este país ainda não tenham sido lançados.**");
-          }
-          if (!message.channel.name.includes('spam')) {
-            msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
-              setTimeout(() => msg.delete(), 10000);
-            })
-            setTimeout(() => message.delete(), 10000);
-          }
-        });
+          message.reply({ embeds: [embed], ephemeral: notspam });
         return;
       });
     } else {
@@ -180,14 +176,7 @@ module.exports = class extends Command {
           .addField("Testes (Aprox.)", json.tests, true)
           .addField("Países Afetados", json.affectedCountries, true);
 
-        message.channel.send(embed).then(msg => {
-          if (!message.channel.name.includes('spam')) {
-            msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
-              setTimeout(() => msg.delete(), 10000);
-            })
-            setTimeout(() => message.delete(), 10000);
-          }
-        });
+        message.reply({ embeds: [embed], ephemeral: notspam });
       });
     }
   }

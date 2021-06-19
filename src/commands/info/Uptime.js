@@ -7,12 +7,12 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['ut'],
             category: 'Informação',
-            description: 'Diz à quanto tempo o bot está ligado'
+            description: 'Diz há quanto tempo o bot está ligado'
         });
     }
 
-    async run(message) {
-        message.channel.send(`Ligado há \`${ms(this.client.uptime, { long : true })}\``);
+    async run(message, args, notspam) {
+        return message.reply({ content: `Ligado há \`${ms(this.client.uptime, { long : true })}\``, ephemeral: notspam });
     }
 
 }

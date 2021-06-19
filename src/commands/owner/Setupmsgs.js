@@ -29,7 +29,7 @@ module.exports = class extends Command {
             )
             .addField(
                 "Comandos :desktop:",
-                `Usa **${this.client.prefix}help** para saberes todos os comandos!`,
+                `Usa **/help** para saberes todos os comandos!`,
                 false
             )
             .addField(
@@ -40,7 +40,7 @@ module.exports = class extends Command {
             message.channel
                 .messages.fetch("612960847160934400")
                 .then(function (message) {
-                    message.edit(newembed);
+                    message.edit({embeds: [newembed]});
                     console.log("Message edited.");
                 });
             message.delete();

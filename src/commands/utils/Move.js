@@ -8,44 +8,57 @@ module.exports = class extends Command {
             category: 'Utilidade',
             description: 'Move as pessoas do teu channel para outro',
             usage: '<Channel>',
-            args : true
+            args : true,
+            cmdoptions: [{
+				name: "channel_destino",
+				type: "CHANNEL",
+				description: "Channel para onde queres mandar as pessoas",
+				required: true,
+			},
+            {
+				name: "channel_origem",
+				type: "CHANNEL",
+				description: "Channel de onde queres mandar as pessoas (Default: Channel onde estás)",
+				required: false,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '510848401169186816',
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ]
         });
     }
 
     async run(message, args) {
 
-        let targetchannelname = args.join(' ');
+        let target = message.guild.channels.cache.get(args[0]);
 
 
-        if (!message.member.hasPermission('MOVE_MEMBERS')) message.channel.send("Não tens permissão para isto.");
+        if (!message.member.permissions.has('MOVE_MEMBERS')) message.reply({ content: "Não tens permissão para isto." , ephemeral: true });
 
-        if (!message.guild.channels.cache.find(ch => ch.name === targetchannelname)) return message.channel.send('Channel inválido.');
 
-        if (!message.member.voice.channel) return message.channel.send("Não estás em nenhum channel.");
+        if (!message.member.voice.channel && !args[1]) return message.reply({ content: "Não estás em nenhum channel.", ephemeral: true });
 
-        const from1 = message.member.voice.channel;
+        const from1 = message.guild.channels.cache.get(args[1]) || message.member.voice.channel;
+        if(from1.members.size == "0") return message.reply({ content: "Esse channel está vazio.", ephemeral: true });
+        if (!(target.type == "voice") || !(from1.type == "voice")) return message.reply({ content: 'Channel inválido.', ephemeral: true });
         var users = from1.members.array();
-        const destiny = message.guild.channels.cache.find(ch => ch.name === targetchannelname);
         for (let i = 0; i < users.length; i++) {
           var usertemp = users[i];
-          usertemp.voice.setChannel(destiny);
+          usertemp.voice.setChannel(target);
         }
-        message.channel.send(
-          "Foram movidas **" +
-            users.length +
-            "** pessoas de `" +
-            from1.name +
-            "` para `" +
-            targetchannelname +
-            "`."
-        ).then(msg => {
-            if (!message.channel.name.includes('spam')) {
-                msg.edit(msg.content + "\n*(Este comando será apagado após 10segs)*").then(msg => {
-                    setTimeout(() => msg.delete(), 10000);
-                })
-                setTimeout(() => message.delete(), 10000);
-            }
-        });
+        message.reply(
+           { content:"Foram movidas **" +
+           users.length +
+           "** pessoas de `" +
+           from1.name +
+           "` para `" +
+           target.name +
+           "`.", ephemeral: false }
+        );
 
     }
 

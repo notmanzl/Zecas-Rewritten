@@ -9,23 +9,35 @@ module.exports = class extends Command {
             category: 'Moderação',
             description: 'Dá mute/unmute a alguém',
             usage: '<Membro>',
-            args : true
+            args: true,
+            cmdoptions: [{
+				name: "user",
+				type: "USER",
+				description: "Utilizador que queres mutar",
+				required: true,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '510848401169186816',
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ]
         });
     }
 
     async run(message, [target]) {
-        const member = message.mentions.members.last() || message.guild.members.cache.get(target) || message.member;
+        const member = message.guild.members.cache.get(target) || message.member;
         let muterole = message.guild.roles.cache.find(role => role.name === "Muted");
-        if (message.member.hasPermission("MUTE_MEMBERS")) {
-            if(member.roles.cache.has(muterole.id) || member.voice.serverMute) {
+        if (message.member.permissions.has("MUTE_MEMBERS")) {
+            if (member.roles.cache.has(muterole.id) || member.voice.serverMute) {
                 member.roles.remove(muterole);
-                member.voice.setMute(false);
-                return message.channel.send(`${member} foi **unmuted**.`);
+                return message.reply(`${member} foi **unmuted**.`);
             } else {
                 member.roles.add(muterole);
-                member.voice.setMute(true);
-                return message.channel.send(`${member} foi **muted**.`);
+                return message.reply(`${member} foi **muted**.`);
             }
-        } else return message.channel.send("Não tens permissão para isto.");
+        } else return message.reply("Não tens permissão para isto.");
     }
 }

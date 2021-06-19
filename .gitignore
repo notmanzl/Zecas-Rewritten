@@ -8,4 +8,4 @@ package-lock.json
 
 assets/audio/
 
-src/commands/unused
+src/commands/disabled

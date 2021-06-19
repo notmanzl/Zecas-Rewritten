@@ -12,18 +12,18 @@ module.exports = class extends Event {
             .setTitle('Mensagem Apagada')
             .setThumbnail(message.member.user.displayAvatarURL({ dynamic: true, size: 4096 }))
             .setTimestamp()
-            .setDescription([
-                `**• ID:** ${message.id}`,
-                `**• Channel:** ${message.channel}`,
-                `**• Autor:** ${message.member.displayName}`,
-                `${attachments ? `**• Ficheiros:** ${attachments.join('\n')}` : ''}`
-            ]);
+            .setDescription(
+                `**• ID:** ${message.id}
+                **• Channel:** ${message.channel}
+                **• Autor:** ${message.member.displayName}
+                ${attachments ? `**• Ficheiros:** ${attachments.join('\n')}` : ''}`
+            );
         if (message.content.length) {
             embed.addField(`**• Mensagem:**`, `${message.content}`);
         }
 
         const channel = message.guild.channels.cache.find(ch => ch.name === 'deletedlogs');
-        if (channel) channel.send(embed);
+        if (channel) channel.send({ embeds: [embed] });
     }
 
 }

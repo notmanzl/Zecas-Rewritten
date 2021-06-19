@@ -6,23 +6,38 @@ module.exports = class extends Command {
         super(...args, {
             category: 'Utilidade',
             description: 'Cria um invite para o servidor',
-            usage: "[número de usos]"
+            usage: "[número de usos]",
+            args: false,
+            cmdoptions: [{
+				name: "usos",
+				type: "INTEGER",
+				description: "Número de usos do invite (Default: 1/Máximo: 5)",
+				required: false,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '568144642131099663',
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ]
         });
     }
 
     async run(message, args) {
-        if (!message.guild.rulesChannel) return message.channel.send("Este servidor não tem um channel de regras.");
+        if (!message.guild.rulesChannel) return message.reply("Este servidor não tem um channel de regras.");
 
         var welcomechannel = message.guild.rulesChannel;
 
         var maxuses = 1;
         if (parseInt(args[0]) <= 5) {
             maxuses = args[0];
-        } else if(args[0]) {
-            return message.channel.send("Não podes criar invites com mais de 5 usos.");
+        } else if (args[0]) {
+            return message.reply("Não podes criar invites com mais de 5 usos.");
         }
 
-        if (message.member.hasPermission('MANAGE_EMOJIS')) {
+        if (message.member.permissions.has('MANAGE_EMOJIS')) {
             var options = {
                 maxAge: 3600,
                 maxUses: maxuses,
@@ -32,7 +47,7 @@ module.exports = class extends Command {
                 .createInvite(options)
                 .then(invite => message.reply(invite.url));
         } else {
-            message.channel.send("Não tens permissão para isto.");
+            message.reply("Não tens permissão para isto.");
         }
     }
 

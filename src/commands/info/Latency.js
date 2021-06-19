@@ -11,11 +11,11 @@ module.exports = class extends Command {
     }
 
     async run(message) {
-        const msg = await message.channel.send('A calcular...');
-
+        await message.reply('A calcular...');
+        const msg = await message.fetchReply();
         const latency = msg.createdTimestamp - message.createdTimestamp;
 
-        msg.edit(`Latência do Bot: \`${latency}ms\` Latência da API: \`${Math.round(this.client.ws.ping)}ms\``);
+        message.editReply(`Latência do Bot: \`${latency}ms\` Latência da API: \`${Math.round(this.client.ws.ping)}ms\``);
     }
 
 }

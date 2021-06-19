@@ -9,6 +9,9 @@ module.exports = class Command{
         this.usage = `${this.name} ${options.usage || ''}`.trim();
         this.args = options.args || false;
         this.ownerOnly = options.ownerOnly || false;
+        this.cmdoptions = options.cmdoptions || [];
+        this.cmdperms = options.cmdperms || [];
+        this.defaultperms = options.defaultperms || true;
     }
 
     async run(message, args){

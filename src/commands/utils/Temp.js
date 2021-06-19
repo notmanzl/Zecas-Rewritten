@@ -8,11 +8,34 @@ module.exports = class extends Command {
             description: 'Cria um Channel temporário',
             category: 'Utilidade',
             usage: '<nome>',
-            args: true
+            args: true,
+            cmdoptions: [{
+				name: "nome",
+				type: "STRING",
+				description: "Nome para o channel",
+				required: true,
+			},
+            {
+				name: "slots",
+				type: "INTEGER",
+				description: "Número de slots do channel (Default: Sem limite)",
+				required: false,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '568144642131099663',
+                    type: 'ROLE',
+                    permission: true,
+                }
+            ]
         })
     }
 
     async run(message, args) {
+
+        let slots = args[1] || 0;
+
         createtempchannel(message);
 
         function findbitrate(message) {
@@ -33,17 +56,17 @@ module.exports = class extends Command {
 
         async function createtempchannel(message) {
             var parent = message.guild.channels.cache.find(ch => ch.name === 'Temporário');
-            if(!parent) return message.channel.send('Não existe uma categoria para channels temporários.');
-            args = args.join(' ');
-            if (message.member.hasPermission('MANAGE_EMOJIS')) {
-                var newchannel = message.guild.channels.create(args, {
+            if(!parent) return message.reply('Não existe uma categoria para channels temporários.');
+            if (message.member.permissions.has('MANAGE_EMOJIS')) {
+                var newchannel = message.guild.channels.create(args[0], {
                     type: "voice",
                     parent: parent,
-                    bitrate: await findbitrate(message)
+                    bitrate: await findbitrate(message),
+                    userLimit: slots
                 });
-                message.channel.send("O teu channel foi criado.");
+                return message.reply("O teu channel foi criado.");
             } else {
-                message.channel.send("Não tens permissão para isto.");
+                return message.reply("Não tens permissão para isto.");
             }
 
         }
