@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             category: 'Utilidade',
             description: 'Cria um invite para o servidor',
-            usage: "[número de usos]",
+            usage: "[Usos]",
             args: false,
             cmdoptions: [{
 				name: "usos",

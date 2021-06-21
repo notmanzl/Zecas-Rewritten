@@ -8,7 +8,7 @@ module.exports = class extends Command {
             aliases: ['votacao'],
             category: 'Utilidade',
             description: 'Cria uma poll',
-            usage: '<pergunta>',
+            usage: '<Pergunta> [Opção 1] [Opção 2]',
             args: true,
 			cmdoptions: [{
 				name: "pergunta",

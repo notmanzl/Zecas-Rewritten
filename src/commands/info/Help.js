@@ -8,13 +8,14 @@ module.exports = class extends Command {
             aliases: ['ajuda', 'h', 'welp'],
             category: 'Informação',
             description: 'Mostra os comandos do Bot',
+            usage: '[Comando]',
             args: false,
             cmdoptions: [{
-				name: "comando",
-				type: "STRING",
-				description: "Comando para o qual queres obter informação (Default: Mostra todos os comandos)",
-				required: false,
-			}],
+                name: "comando",
+                type: "STRING",
+                description: "Comando para o qual queres obter informação (Default: Mostra todos os comandos)",
+                required: false,
+            }],
         });
     }
 
@@ -29,21 +30,21 @@ module.exports = class extends Command {
         if (command) {
             const cmd = this.client.commands.get(command) || this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
 
-            if (!cmd) return message.reply({content: `O comando \`${command}\` não existe.`  , ephemeral: notspam })
+            if (!cmd) return message.reply({ content: `O comando \`${command}\` não existe.`, ephemeral: notspam })
 
             embed.setAuthor(`Ajuda para ${this.client.utils.capitalise(cmd.name)}`, this.client.user.displayAvatarURL());
             embed.setDescription(
-                `**• Alias:** ${cmd.aliases.length ? cmd.aliases.map(alias => `\`${alias}\``).join(' ') : 'Nenhum alias'}
-                **• Descrição:** ${cmd.description}
+                //**• Alias:** ${cmd.aliases.length ? cmd.aliases.map(alias => `\`${alias}\``).join(' ') : 'Nenhum alias'}
+                `**• Descrição:** ${cmd.description}
                 **• Categoria:** ${cmd.category}
-                **• Uso:** ${this.client.prefix + cmd.usage}`
+                **• Uso:** /${cmd.usage}`
             );
 
-            return message.reply({embeds: [embed]  , ephemeral: notspam });
+            return message.reply({ embeds: [embed], ephemeral: notspam });
         } else {
             embed.setDescription(
                 `Comandos disponíveis.
-                Prefixo: / ou \`${this.client.prefix}\`
+                Prefixo: \`/\`
                 Parámetros do commando: \`<>\` é obrigatório e \`[]\` é opcional.`
             );
             let categories;
@@ -60,7 +61,7 @@ module.exports = class extends Command {
                             !cmd.serverOnly || (cmd.serverOnly && message.guild)).map(cmd => `\`${cmd.name}\``).join(' '));
                 } catch (e) { }
             }
-            return message.reply({embeds: [embed]  , ephemeral: notspam });
+            return message.reply({ embeds: [embed], ephemeral: notspam });
         }
     }
 

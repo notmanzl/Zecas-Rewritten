@@ -13,7 +13,7 @@ module.exports = class extends Command {
       aliases: ['corona', 'coronavirus', 'covid-19'],
       category: 'Informação',
       description: 'Mostra dados e estatísticas sobre o Coronavírus',
-      usage: '[país]',
+      usage: '<País>',
       cmdoptions: [{
 				name: "país",
 				type: "STRING",

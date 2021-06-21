@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ['temporary', 'temporario'],
             description: 'Cria um Channel temporário',
             category: 'Utilidade',
-            usage: '<nome>',
+            usage: '<Nome> [Slots]',
             args: true,
             cmdoptions: [{
 				name: "nome",

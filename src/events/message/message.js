@@ -19,13 +19,13 @@ module.exports = class extends Event {
 
         const command = this.client.commands.get(cmd.toLowerCase()) || this.client.commands.get(this.client.aliases.get(cmd.toLowerCase()));
         if (command) {
-            if (command.ownerOnly && !this.client.utils.checkOwner(message.author)){
-                return message.channel.send('Este comando só pode ser usado pelo owner.');
+            if (!this.client.utils.checkOwner(message.author)){
+                return;
             }
 
             if (command.args && !args.length) {
-                return message.channel.send(`Este comando precisa de argumentos. Uso correto: **${command.usage ?
-                    this.client.prefix + command.usage : 'Este commando não tem um formato de uso'}**.`);
+                return message.channel.send(`Este comando precisa de argumentos. Uso correto: **/${command.usage ?
+                   command.usage : 'Este commando não tem um formato de uso'}**.`);
             }
 
             command.run(message, args);

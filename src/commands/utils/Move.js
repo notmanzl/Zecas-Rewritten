@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ['mover'],
             category: 'Utilidade',
             description: 'Move as pessoas do teu channel para outro',
-            usage: '<Channel>',
+            usage: '<Channel de destino> [Channel de origem]',
             args : true,
             cmdoptions: [{
 				name: "channel_destino",

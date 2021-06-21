@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ['slow', 'sm'],
             category: 'Moderação',
             description: 'Ativa ou desativa o Slowmode',
-            usage: '[tempo]',
+            usage: '[Tempo]',
             cmdoptions: [{
 				name: "tempo",
 				type: "INTEGER",

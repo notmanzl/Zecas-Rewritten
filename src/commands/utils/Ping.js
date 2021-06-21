@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ['chamar'],
             category: 'Utilidade',
             description: 'Chama a pessoa mencionada',
-            usage: '<@membro>',
+            usage: '<@Membro>',
             args: true,
             cmdoptions: [{
 				name: "user",

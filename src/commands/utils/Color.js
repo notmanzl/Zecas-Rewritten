@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ['cor'],
             category: 'Utilidade',
             description: 'Muda a tua cor',
-            usage: "<cor>",
+            usage: "<Cor>",
             args: true,
             cmdoptions: [{
 				name: "cor",
