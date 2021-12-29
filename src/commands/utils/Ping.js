@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
     async run(message, [target]) {
         const member = message.guild.members.cache.get(target);
-        if (!message.member.permissions.has('MANAGE_EMOJIS')) return message.reply({ content: `Não tens permissão para isto!`, ephemeral: true });
+        if (!message.member.permissions.has('MANAGE_EMOJIS_AND_STICKERS')) return message.reply({ content: `Não tens permissão para isto!`, ephemeral: true });
         member.send("**PING!** <@" + message.member.user.id + "> está te a chamar!");
         return message.reply({ content: `Enviado!`, ephemeral: true });
     }

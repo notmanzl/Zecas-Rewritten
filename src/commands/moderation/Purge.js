@@ -18,7 +18,7 @@ module.exports = class extends Command {
             {
                 name: "channel",
                 type: "CHANNEL",
-                description: "Channel onde queres apagar as mensagens",
+                description: "Channel onde queres apagar as mensagens (Default: Channel onde fazes o comando)",
                 required: false,
             }],
             defaultperms: false,

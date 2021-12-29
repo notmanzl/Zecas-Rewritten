@@ -6,7 +6,8 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['ms'],
             category: 'Informação',
-            description: 'Mostra a latência do bot'
+            description: 'Mostra a latência do bot',
+            defaultperms: true,
         });
     }
 

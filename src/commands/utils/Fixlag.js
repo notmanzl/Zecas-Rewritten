@@ -19,13 +19,17 @@ module.exports = class extends Command {
     }
 
     async run(message) {
-        if (message.member.voice.channel) {
-            if (message.member.voice.channel.rtcRegion == "europe") {
-                message.member.voice.channel.setRTCRegion("us-east").then(updated => message.reply(`Região mudada para \`${updated.rtcRegion}\`.`));
-            } else {
-                message.member.voice.channel.setRTCRegion("europe").then(updated => message.reply(`Região mudada para \`${updated.rtcRegion}\`.`));;
-            }
-        } else return message.reply("Não estás num voice channel")
+        if (message.member.permissions.has('MANAGE_EMOJIS_AND_STICKERS')) {
+            if (message.member.voice.channel) {
+                if (message.member.voice.channel.rtcRegion == "rotterdam") {
+                    message.member.voice.channel.setRTCRegion("us-east").then(updated => message.reply(`Região mudada para \`${updated.rtcRegion}\`.`));
+                } else {
+                    message.member.voice.channel.setRTCRegion("rotterdam").then(updated => message.reply(`Região mudada para \`${updated.rtcRegion}\`.`));;
+                }
+            } else return message.reply("Não estás num voice channel")
+        } else {
+            return message.reply("Não tens permissão para isto.");
+        }
     }
 
 }

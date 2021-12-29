@@ -57,9 +57,9 @@ module.exports = class extends Command {
         async function createtempchannel(message) {
             var parent = message.guild.channels.cache.find(ch => ch.name === 'Temporário');
             if(!parent) return message.reply('Não existe uma categoria para channels temporários.');
-            if (message.member.permissions.has('MANAGE_EMOJIS')) {
+            if (message.member.permissions.has('MANAGE_EMOJIS_AND_STICKERS')) {
                 var newchannel = message.guild.channels.create(args[0], {
-                    type: "voice",
+                    type: "GUILD_VOICE",
                     parent: parent,
                     bitrate: await findbitrate(message),
                     userLimit: slots

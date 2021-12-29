@@ -10,7 +10,21 @@ module.exports = class extends Command {
             category: 'Owner',
             usage: '<comando>',
             ownerOnly: true,
-            args: true
+            args: true,
+            cmdoptions: [{
+				name: "comando",
+				type: "STRING",
+				description: "Comando que queres executar",
+				required: true,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '66135146079715328',
+                    type: 'USER',
+                    permission: true,
+                },
+            ]
         })
     }
 

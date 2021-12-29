@@ -10,8 +10,8 @@ module.exports = class Command{
         this.args = options.args || false;
         this.ownerOnly = options.ownerOnly || false;
         this.cmdoptions = options.cmdoptions || [];
+        this.defaultperms = options.defaultperms || false;
         this.cmdperms = options.cmdperms || [];
-        this.defaultperms = options.defaultperms || true;
     }
 
     async run(message, args){

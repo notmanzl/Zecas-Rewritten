@@ -16,13 +16,14 @@ module.exports = class extends Command {
                 description: "Comando para o qual queres obter informação (Default: Mostra todos os comandos)",
                 required: false,
             }],
+            defaultperms: true,
         });
     }
 
     async run(message, [command], notspam) {
         const embed = new MessageEmbed()
             .setColor(message.member.displayColor)
-            .setAuthor(`${this.client.user.username} Ajuda`, message.guild.iconURL({ dynamic: true, size: 4096 }))
+            .setAuthor(`${this.client.user.username} - Ajuda`, message.guild.iconURL({ dynamic: true, size: 4096 }))
             .setThumbnail(this.client.user.displayAvatarURL())
             .setFooter("Pedido por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
@@ -32,7 +33,7 @@ module.exports = class extends Command {
 
             if (!cmd) return message.reply({ content: `O comando \`${command}\` não existe.`, ephemeral: notspam })
 
-            embed.setAuthor(`Ajuda para ${this.client.utils.capitalise(cmd.name)}`, this.client.user.displayAvatarURL());
+            embed.setAuthor(`Ajuda para /${this.client.utils.capitalise(cmd.name)}`, this.client.user.displayAvatarURL());
             embed.setDescription(
                 //**• Alias:** ${cmd.aliases.length ? cmd.aliases.map(alias => `\`${alias}\``).join(' ') : 'Nenhum alias'}
                 `**• Descrição:** ${cmd.description}

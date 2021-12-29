@@ -7,7 +7,8 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ['ut'],
             category: 'Informação',
-            description: 'Diz há quanto tempo o bot está ligado'
+            description: 'Diz há quanto tempo o bot está ligado',
+            defaultperms: true,
         });
     }
 

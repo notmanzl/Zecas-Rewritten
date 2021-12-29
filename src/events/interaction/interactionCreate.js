@@ -1,4 +1,4 @@
-const Event = require('../structures/event');
+const Event = require('../../structures/event');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Event {
@@ -14,7 +14,7 @@ module.exports = class extends Event {
             }
 
             const args = [];
-            await interaction.options.forEach(option => {
+            await interaction.options.data.forEach(option => {
                 args.push(option.value)
             });
 

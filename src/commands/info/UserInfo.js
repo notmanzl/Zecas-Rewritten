@@ -32,11 +32,13 @@ module.exports = class extends Command {
 				description: "Utilizador para o qual queres obter informação (Default: Tu)",
 				required: false,
 			}],
+            defaultperms: true,
         });
     }
 
     async run(message, [target], notspam) {
         const member = message.guild.members.cache.get(target) || message.member;
+        await member.user.fetch(true);
 
         const userData = await this.client.mongoDB.db('Discord').collection('experience').findOne({guildId : message.guild.id , userId :member.user.id});
         const level = this.client.utils.getLevel(userData.experience);
@@ -53,13 +55,13 @@ module.exports = class extends Command {
                 **• Flags:** ${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'Nenhum'}
                 **• Avatar:** [Link](${member.user.displayAvatarURL({ dynamic: true })})
                 **• Criou conta a:** ${moment(member.user.createdTimestamp).format('LT')} ${moment(member.user.createdTimestamp).format('LL')} ${moment(member.user.createdTimestamp).fromNow()}
-                **• Estado:** ${member.user.presence.status}
+                **• Estado:** ${member.presence.status}
                 \u200b`
             )
             .addField('Member', 
                 `**• Role Principal:** ${member.roles.highest.id === message.guild.id ? 'Nenhum' : member.roles.highest.name}
                 **• Juntou-se a:** ${moment(member.joinedAt).format('LL LTS')}
-                **• Role:** ${member.roles.hoist ? member.roles.hoist.name : 'Nenhum'}
+                **• Role:** ${member.roles.cache.map(r => r).hoist ? member.roles.hoist.name : 'Nenhum'}
                 **• Roles:** [${roles.length}]: ${roles.length < 10 ? roles.join(', ') : roles.length > 9 ? this.client.utils.trimArray(roles) : 'Nenhum'}
                 \u200b`
             )
@@ -68,6 +70,7 @@ module.exports = class extends Command {
                 **• Nível:** ${level}
                 **• Rank:** ${rankP}`
             )
+            .setImage(member.user.bannerURL({ dynamic: true, size: 4096 }))
             .setTimestamp()
             .setFooter(`${message.guild.name}`, message.guild.iconURL({ dynamic: true }));
 

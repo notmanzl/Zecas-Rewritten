@@ -7,11 +7,25 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: [],
-            description: 'test command, do not use',
+            description: 'Dá deploy de Slash Commands',
             category: 'Owner',
-            usage: '<pergunta>',
+            usage: '<comando>',
             ownerOnly: true,
-            args: true
+            args: true,
+            cmdoptions: [{
+                name: "comando",
+                type: "STRING",
+                description: "Nome do comando que queres dar deploy",
+                required: true,
+            }],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '66135146079715328',
+                    type: 'USER',
+                    permission: true,
+                },
+            ]
         })
     }
 
@@ -21,14 +35,19 @@ module.exports = class extends Command {
         const data = {
             name: args[0],
             description: cmd.description,
-            defaultPermission: cmd.defaultperms,
-            options: cmd.cmdoptions
+            options: cmd.cmdoptions,
+            defaultPermission: cmd.defaultperms
         };
-        const command = await message.guild.commands.create(data);
-        await command.setPermissions(cmd.cmdperms);
+        let command = await message.guild.commands.create(data);
+        console.log(cmd.cmdperms);
+        command = await command.permissions.set({
+            guild: message.guild, command: command,
+            permissions:
+                cmd.cmdperms,
+
+        })
         console.log(command);
         message.reply(`Comando **/${args[0]}** registado nesta Guild com a descrição **${cmd.description}**`)
-
     }
 
 

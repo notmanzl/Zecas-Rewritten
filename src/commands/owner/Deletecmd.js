@@ -7,11 +7,25 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: [],
-            description: 'test command, do not use',
+            description: 'Apaga Slash Commands',
             category: 'Owner',
-            usage: '<pergunta>',
+            usage: '<comando>',
             ownerOnly: true,
-            args: true
+            args: true,
+            cmdoptions: [{
+				name: "comando",
+				type: "STRING",
+				description: "Nome do comando que queres apagar",
+				required: true,
+			}],
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '66135146079715328',
+                    type: 'USER',
+                    permission: true,
+                },
+            ]
         })
     }
 

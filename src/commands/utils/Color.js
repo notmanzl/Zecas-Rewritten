@@ -33,9 +33,9 @@ module.exports = class extends Command {
         }
 
         var ccolor = args[0];
-        if (message.member.permissions.has('MANAGE_EMOJIS')) {
-            var memberRoles = message.member.roles.cache.array();
-            if (ccolor == "reset") {
+        if (message.member.permissions.has('MANAGE_EMOJIS_AND_STICKERS')) {
+            var memberRoles = Array.from(message.member.roles.cache.map(r => r));
+            if (ccolor == "reset") {     
                 for (var i = 0; i < memberRoles.length; i++) {
                     if (memberRoles[i].name.startsWith("#")) {
                         message.member.roles.remove(memberRoles[i]);

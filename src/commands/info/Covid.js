@@ -20,6 +20,7 @@ module.exports = class extends Command {
 				description: "País sobre o qual queres obter informação",
 				required: true,
 			}],
+      defaultperms: true,
     });
   }
 

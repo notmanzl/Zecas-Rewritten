@@ -10,24 +10,25 @@ module.exports = class extends Command {
             description: 'Cria uma poll',
             usage: '<Pergunta> [Opção 1] [Opção 2]',
             args: true,
-			cmdoptions: [{
-				name: "pergunta",
-				type: "STRING",
-				description: "Pergunta para a Poll",
-				required: true,
-			},
+            cmdoptions: [{
+                name: "pergunta",
+                type: "STRING",
+                description: "Pergunta para a Poll",
+                required: true,
+            },
             {
-				name: "reposta_1",
-				type: "STRING",
-				description: `Primeira opção de resposta (Default: "Sim")`,
-				required: false,
-			},
+                name: "reposta_1",
+                type: "STRING",
+                description: `Primeira opção de resposta (Default: "Sim")`,
+                required: false,
+            },
             {
-				name: "resposta_2",
-				type: "STRING",
-				description: `Segunda opção de resposta (Default: "Não")`,
-				required: false,
-			}],
+                name: "resposta_2",
+                type: "STRING",
+                description: `Segunda opção de resposta (Default: "Não")`,
+                required: false,
+            }],
+            defaultperms: true,
         });
     }
 
@@ -68,15 +69,15 @@ module.exports = class extends Command {
         const row = new MessageActionRow()
             .addComponents(
                 new MessageButton()
-                    .setCustomID('sim')
+                    .setCustomId('sim')
                     .setLabel(ans1)
                     .setStyle('SUCCESS'),
                 new MessageButton()
-                    .setCustomID('nao')
+                    .setCustomId('nao')
                     .setLabel(ans2)
                     .setStyle('DANGER'),
                 new MessageButton()
-                    .setCustomID('respostas')
+                    .setCustomId('respostas')
                     .setLabel('Ver Respostas')
                     .setStyle('SECONDARY'),
             );
@@ -84,96 +85,85 @@ module.exports = class extends Command {
         await message.reply({ embeds: [embed], components: [row] });
         const msg = await message.fetchReply();
 
-        const filtersim = i => i.customID === 'sim';
+        const collector = msg.createMessageComponentCollector({ componentType: 'BUTTON', time: 86400000 });
 
-        const collectorsim = msg.createMessageComponentInteractionCollector(filtersim, { time: 86400000 });
-
-        collectorsim.on('collect', i => {
-            if (arrsim.includes(i.member)) return i.reply({ content: `Não podes votar outra vez!`, ephemeral: true });
-            else if (arrnao.includes(i.member)) {
-                varsim++;
-                varnao--;
-                arrnao.splice(arrnao.indexOf(i.member), 1);
-                arrsim.push(i.member);
-                i.reply({ content: `Voto Alterado!`, ephemeral: true });
-                const embed = new MessageEmbed()
-                    .setColor(message.member.displayColor)
-                    .setTitle("Poll")
-                    .setDescription(description)
-                    .addField(ans1, varsim.toString(), true)
-                    .addField(ans2, varnao.toString(), true)
-                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
-                    .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
-                msg.edit({ embeds: [embed], components: [row] });
+        collector.on('collect', i => {
+            if (i.customId === 'nao') {
+                if (arrnao.includes(i.member)) return i.reply({ content: `Não podes votar outra vez!`, ephemeral: true });
+                else if (arrsim.includes(i.member)) {
+                    varnao++;
+                    varsim--;
+                    arrsim.splice(arrsim.indexOf(i.member), 1);
+                    arrnao.push(i.member);
+                    i.reply({ content: `Voto Alterado!`, ephemeral: true });
+                    const embed = new MessageEmbed()
+                        .setColor(message.member.displayColor)
+                        .setTitle("Poll")
+                        .setDescription(description)
+                        .addField(ans1, varsim.toString(), true)
+                        .addField(ans2, varnao.toString(), true)
+                        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
+                        .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
+                    msg.edit({ embeds: [embed], components: [row] });
+                }
+                else {
+                    i.reply({ content: `Voto Registado!`, ephemeral: true });
+                    varnao++;
+                    const embed = new MessageEmbed()
+                        .setColor(message.member.displayColor)
+                        .setTitle("Poll")
+                        .setDescription(description)
+                        .addField(ans1, varsim.toString(), true)
+                        .addField(ans2, varnao.toString(), true)
+                        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
+                        .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
+                    msg.edit({ embeds: [embed], components: [row] });
+                    arrnao.push(i.member);
+                }
+            } else if (i.customId === 'sim') {
+                if (arrsim.includes(i.member)) return i.reply({ content: `Não podes votar outra vez!`, ephemeral: true });
+                else if (arrnao.includes(i.member)) {
+                    varsim++;
+                    varnao--;
+                    arrnao.splice(arrnao.indexOf(i.member), 1);
+                    arrsim.push(i.member);
+                    i.reply({ content: `Voto Alterado!`, ephemeral: true });
+                    const embed = new MessageEmbed()
+                        .setColor(message.member.displayColor)
+                        .setTitle("Poll")
+                        .setDescription(description)
+                        .addField(ans1, varsim.toString(), true)
+                        .addField(ans2, varnao.toString(), true)
+                        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
+                        .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
+                    msg.edit({ embeds: [embed], components: [row] });
+                }
+                else {
+                    i.reply({ content: `Voto Registado!`, ephemeral: true });
+                    varsim++;
+                    const embed = new MessageEmbed()
+                        .setColor(message.member.displayColor)
+                        .setTitle("Poll")
+                        .setDescription(description)
+                        .addField(ans1, varsim.toString(), true)
+                        .addField(ans2, varnao.toString(), true)
+                        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
+                        .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
+                    msg.edit({ embeds: [embed], components: [row] });
+                    arrsim.push(i.member);
+                }
+            } else if (i.customId === 'respostas') {
+                if (varsim > 0 || varnao > 0) {
+                    const respembed = new MessageEmbed()
+                        .setColor(message.member.displayColor)
+                        .setTitle("Poll - Respostas")
+                        .addField(ans1 + " (" + varsim + ")", arrsim.toString() || varsim.toString())
+                        .addField(ans2 + " (" + varnao + ")", arrnao.toString() || varnao.toString())
+                        .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
+                        .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
+                    i.reply({ embeds: [respembed], ephemeral: true });
+                } else return i.reply({ content: "Ainda não existem respostas.", ephemeral: true })
             }
-            else {
-                i.reply({ content: `Voto Registado!`, ephemeral: true });
-                varsim++;
-                const embed = new MessageEmbed()
-                    .setColor(message.member.displayColor)
-                    .setTitle("Poll")
-                    .setDescription(description)
-                    .addField(ans1, varsim.toString(), true)
-                    .addField(ans2, varnao.toString(), true)
-                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
-                    .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
-                msg.edit({ embeds: [embed], components: [row] });
-                arrsim.push(i.member);
-            }
-        });
-
-        const filternao = i => i.customID === 'nao';
-
-        const collectornao = msg.createMessageComponentInteractionCollector(filternao, { time: 86400000 });
-
-        collectornao.on('collect', i => {
-            if (arrnao.includes(i.member)) return i.reply({ content: `Não podes votar outra vez!`, ephemeral: true });
-            else if (arrsim.includes(i.member)) {
-                varnao++;
-                varsim--;
-                arrsim.splice(arrsim.indexOf(i.member), 1);
-                arrnao.push(i.member);
-                i.reply({ content: `Voto Alterado!`, ephemeral: true });
-                const embed = new MessageEmbed()
-                    .setColor(message.member.displayColor)
-                    .setTitle("Poll")
-                    .setDescription(description)
-                    .addField(ans1, varsim.toString(), true)
-                    .addField(ans2, varnao.toString(), true)
-                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
-                    .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
-                msg.edit({ embeds: [embed], components: [row] });
-            }
-            else {
-                i.reply({ content: `Voto Registado!`, ephemeral: true });
-                varnao++;
-                const embed = new MessageEmbed()
-                    .setColor(message.member.displayColor)
-                    .setTitle("Poll")
-                    .setDescription(description)
-                    .addField(ans1, varsim.toString(), true)
-                    .addField(ans2, varnao.toString(), true)
-                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
-                    .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
-                msg.edit({ embeds: [embed], components: [row] });
-                arrnao.push(i.member);
-            }
-        });
-
-        const filterresp = i => i.customID === 'respostas';
-
-        const collectorresp = msg.createMessageComponentInteractionCollector(filterresp, { time: 86400000 });
-        collectorresp.on('collect', i => {
-            if (varsim > 0 || varnao > 0) {
-                const respembed = new MessageEmbed()
-                    .setColor(message.member.displayColor)
-                    .setTitle("Poll - Respostas")
-                    .addField(ans1 + " (" + varsim + ")", arrsim.toString() || varsim.toString())
-                    .addField(ans2 + " (" + varnao + ")", arrnao.toString() || varnao.toString())
-                    .setThumbnail(message.guild.iconURL({ dynamic: true, size: 4096 }))
-                    .setFooter("Poll criada por " + message.member.user.username, message.member.user.displayAvatarURL({ dynamic: true }));
-                i.reply({ embeds: [respembed], ephemeral: true });
-            } else return i.reply({ content: "Ainda não existem respostas.", ephemeral: true })
         });
 
     }

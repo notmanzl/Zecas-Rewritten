@@ -8,6 +8,14 @@ module.exports = class extends Command {
             description: 'Dá setup da mensagem no Welcome',
             category: 'Owner',
             ownerOnly: true,
+            defaultperms: false,
+            cmdperms: [
+                {
+                    id: '66135146079715328',
+                    type: 'USER',
+                    permission: true,
+                },
+            ]
         })
     }
 

@@ -37,7 +37,7 @@ module.exports = class extends Command {
             return message.reply("Não podes criar invites com mais de 5 usos.");
         }
 
-        if (message.member.permissions.has('MANAGE_EMOJIS')) {
+        if (message.member.permissions.has('MANAGE_EMOJIS_AND_STICKERS')) {
             var options = {
                 maxAge: 3600,
                 maxUses: maxuses,

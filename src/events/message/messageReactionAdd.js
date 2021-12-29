@@ -14,22 +14,10 @@ module.exports = class extends Event {
                             member.guild.roles.cache.find(role => role.name === "GTA")
                         );
                     }
-                    //cs
-                    if (messageReaction.emoji.id == 612351414395469824) {
-                        member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "CS")
-                        );
-                    }
                     //lol
                     if (messageReaction.emoji.id == 612351828473937951) {
                         member.roles.add(
                             member.guild.roles.cache.find(role => role.name === "LoL")
-                        );
-                    }
-                    //Anime
-                    if (messageReaction.emoji.id == 721816608108183583) {
-                        member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Weeb")
                         );
                     }
                     //MC
@@ -38,10 +26,10 @@ module.exports = class extends Event {
                             member.guild.roles.cache.find(role => role.name === "Minecraft")
                         );
                     }
-                    //Amongus
-                    if (messageReaction.emoji.id == 754373354982735872) {
+                    //Valorant
+                    if (messageReaction.emoji.id == 702266556117155860) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Among Us")
+                            member.guild.roles.cache.find(role => role.name === "Valorant")
                         );
                     }
                     //F1
@@ -56,28 +44,34 @@ module.exports = class extends Event {
                             member.guild.roles.cache.find(role => role.name === "UFC")
                         );
                     }
-                    //Apex
-                    if (messageReaction.emoji.id == 771062410923868221) {
-                        member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Apex")
-                        );
-                    }
                     //Genshin
-                    if (messageReaction.emoji.id == 771060542918885436) {
+                    if (messageReaction.emoji.id == 900153011303768085) {
                         member.roles.add(
                             member.guild.roles.cache.find(role => role.name === "Genshin")
                         );
                     }
-                    //Cyberpunk
-                    if (messageReaction.emoji.id == 771060089556697128) {
+                    //Anime
+                    if (messageReaction.emoji.id == 721816608108183583) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Cyberpunk")
+                            member.guild.roles.cache.find(role => role.name === "Anime")
                         );
                     }
-                    //phasmo
-                    if (messageReaction.emoji.id == 777599465888284702) {
+                    //Futebol
+                    if (messageReaction.emoji.id == 857017377219543050) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Phasmophobia")
+                            member.guild.roles.cache.find(role => role.name === "Futebol")
+                        );
+                    }
+                    //Gaming News
+                    if (messageReaction.emoji.id == 857019715083436042) {
+                        member.roles.add(
+                            member.guild.roles.cache.find(role => role.name === "Gaming News")
+                        );
+                    }
+                    //Free Games
+                    if (messageReaction.emoji.id == 857019346622742548) {
+                        member.roles.add(
+                            member.guild.roles.cache.find(role => role.name === "Free Games")
                         );
                     }
                     console.log(`Adicionado ${messageReaction.emoji.name} a alguém.`)
