@@ -41,14 +41,13 @@ module.exports = class extends Command {
 
     async run(message, args) {
         const member = message.guild.members.cache.get(args[0]) || message.member;
-        console.log(member.moderatable);
         if ((message.member.permissions.has("MODERATE_MEMBERS") && member.moderatable)) {
-            if (member.communicationDisabledUntil || !args[1]) {
+            if (member.isCommunicationDisabled() || !args[1]) {
                 member.timeout(null);
                 return message.reply(`${member} ficou **sem timeout**.`);
             } else {
-                if(!args[2]) args[2] = "";
-                member.timeout(args[1]*1000, args[2] + " (" + message.member.user.username + ")");
+                if (!args[2]) args[2] = "";
+                member.timeout(args[1] * 1000, args[2] + " (" + message.member.user.username + ")");
                 return message.reply(`${member} levou **timeout de ${args[1]} segundos**.`);
             }
         } else if (!member.moderatable) {

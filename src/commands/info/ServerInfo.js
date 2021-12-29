@@ -5,7 +5,7 @@ const moment = require('moment');
 const filterLevels = {
     DISABLED: 'Desligado',
     MEMBERS_WITHOUT_ROLES: 'Sem role',
-    ALL_MEMBERS: 'Everyone'
+    ALL_MEMBERS: 'Todos'
 };
 const verificationLevels = {
     NONE: 'Nenhum',
