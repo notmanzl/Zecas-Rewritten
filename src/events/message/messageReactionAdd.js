@@ -1,3 +1,4 @@
+/* eslint-disable no-loss-of-precision */
 const Event = require('../../structures/event');
 
 module.exports = class extends Event {
@@ -7,77 +8,83 @@ module.exports = class extends Event {
             if (messageReaction.message.channel.id == 612345060008132620) {
                 if (messageReaction.partial) await messageReaction.fetch();
                 if (user.id != 511614459672920079) {
-                    var member = messageReaction.message.guild.members.cache.get(user.id);
-                    //gta
+                    const member = messageReaction.message.guild.members.cache.get(user.id);
+                    // gta
                     if (messageReaction.emoji.id == 612349938214502495) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "GTA")
+                            member.guild.roles.cache.find(role => role.name === 'GTA'),
                         );
                     }
-                    //lol
+                    // lol
                     if (messageReaction.emoji.id == 612351828473937951) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "LoL")
+                            member.guild.roles.cache.find(role => role.name === 'LoL'),
                         );
                     }
-                    //MC
+                    // MC
                     if (messageReaction.emoji.id == 722166993779949789) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Minecraft")
+                            member.guild.roles.cache.find(role => role.name === 'Minecraft'),
                         );
                     }
-                    //Valorant
+                    // Valorant
                     if (messageReaction.emoji.id == 702266556117155860) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Valorant")
+                            member.guild.roles.cache.find(role => role.name === 'Valorant'),
                         );
                     }
-                    //F1
+                    // F1
                     if (messageReaction.emoji.id == 771060089498501141) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "F1")
+                            member.guild.roles.cache.find(role => role.name === 'F1'),
                         );
                     }
-                    //UFC
+                    // UFC
                     if (messageReaction.emoji.id == 771060089367953408) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "UFC")
+                            member.guild.roles.cache.find(role => role.name === 'UFC'),
                         );
                     }
-                    //Genshin
+                    // Genshin
                     if (messageReaction.emoji.id == 900153011303768085) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Genshin")
+                            member.guild.roles.cache.find(role => role.name === 'Genshin'),
                         );
                     }
-                    //Anime
+                    // Anime
                     if (messageReaction.emoji.id == 721816608108183583) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Anime")
+                            member.guild.roles.cache.find(role => role.name === 'Anime'),
                         );
                     }
-                    //Futebol
+                    // Futebol
                     if (messageReaction.emoji.id == 857017377219543050) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Futebol")
+                            member.guild.roles.cache.find(role => role.name === 'Futebol'),
                         );
                     }
-                    //Gaming News
+                    // Gaming News
                     if (messageReaction.emoji.id == 857019715083436042) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Gaming News")
+                            member.guild.roles.cache.find(role => role.name === 'Gaming News'),
                         );
                     }
-                    //Free Games
+                    // Free Games
                     if (messageReaction.emoji.id == 857019346622742548) {
                         member.roles.add(
-                            member.guild.roles.cache.find(role => role.name === "Free Games")
+                            member.guild.roles.cache.find(role => role.name === 'Free Games'),
                         );
                     }
-                    console.log(`Adicionado ${messageReaction.emoji.name} a alguém.`)
+                    // Lost Ark
+                    if (messageReaction.emoji.id == 942214840452276244) {
+                        member.roles.add(
+                            member.guild.roles.cache.find(role => role.name === 'Lost Ark'),
+                        );
+                    }
+                    console.log(`Adicionado ${messageReaction.emoji.name} a alguém.`);
                 }
             }
         }
     }
 
-}
+};

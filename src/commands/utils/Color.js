@@ -65,7 +65,6 @@ module.exports = class extends Command {
 				removeRoles(memberRoles);
 				return message.reply({ content: 'Ficaste sem cores.', ephemeral: notspam });
 			}
-
 			// CORES PADRÃO
 			if (findRole(message.guild, ccolor + '$')) {
 				removeRoles(memberRoles);
@@ -92,12 +91,13 @@ module.exports = class extends Command {
 						{
 							name: ccolor,
 							color: ccolor,
+							permissions: '',
 						})
 					.then(role => message.member.roles.add(role));
 				return message.reply({ content: 'Ficaste com a cor `' + ccolor + '`.', ephemeral: notspam });
 			}
-
 		}
+
 		else {
 			message.reply({ content: 'Não tens permissão para isto.', ephemeral: notspam });
 		}
