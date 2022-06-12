@@ -7,80 +7,57 @@ var $ = (jQuery = require("jquery")(window));
 
 module.exports = class extends Command {
 
-    constructor(...args) {
-        super(...args, {
-            aliases: ['mc'],
-            category: 'Informação',
-            description: 'Mostra a informação sobre um servidor de minecraft',
-            usage: '[IP]',
-            cmdoptions: [{
-                name: "ip",
-                type: "STRING",
-                description: "Servidor para o qual queres obter informação (Default: mc.manzl.pt)",
-                required: false,
-            }],
-            defaultperms: true,
-        });
+constructor(...args) {
+    super(...args, {
+        aliases: ['mc'],
+        category: 'Informação',
+        description: 'Mostra a informação sobre um servidor de minecraft',
+        usage: '[IP]',
+        cmdoptions: [{
+            name: "ip",
+            type: "STRING",
+            description: "Servidor para o qual queres obter informação (Default: mc.manzl.pt)",
+            required: false,
+        }],
+        defaultperms: true,
+    });
+}
+
+async run(message, args, notspam) {
+    let ip = 'mc.manzl.pt';
+    let port = '25565';
+    if (args[0]) {
+        ip = args[0].replace(":", "/");
     }
 
-    async run(message, args, notspam) {
-        let ip = 'mc.manzl.pt';
-        let port = '25565';
-        if (args[0]) {
-            ip = args[0].replace(":", "/");
-        }
 
-        $.getJSON(
-            "https://api.minetools.eu/ping/" + ip,
-            function (json) {
-                if (json.error) {
-                    const embed = new MessageEmbed()
-                        .setAuthor("Informações sobre " + ip)
-                        .setColor(0xff0000)
-                        .setFooter(
-                            "Informação pedida por " + message.member.user.username,
-                            message.member.user.avatarURL
-                        )
-                        .setThumbnail(
-                            "https://cdn.pixabay.com/photo/2012/04/24/12/29/no-symbol-39767_960_720.png"
-                        )
-                        .setTimestamp()
-                        .addField("Erro", "Offline/" + (json.error), true);
-                        return message.reply({ embeds: [embed], ephemeral: notspam });
-                } else {
-                    var namesArray = [];
-                    var jString = JSON.stringify(json.players.sample.name);
-                    if (json.players.sample.length > 0) {
-                        for (let i = 0; i < json.players.online; i++) {
-                            namesArray[i] = json.players.sample[i].name;
-                        }
-                    }
-                    const embed = new MessageEmbed()
-                        .setAuthor("Informações sobre " + ip)
-                        .setColor(0x99ff33)
-                        .setFooter(
-                            "Informação pedida por " + message.member.user.username,
-                            message.member.user.avatarURL
-                        )
-                        .setThumbnail(
-                            "https://api.minetools.eu/favicon/" + ip
-                        )
-                        .setTimestamp()
-                        .addField(
-                            "Players",
-                            json.players.online + "/" + json.players.max,
-                            true
-                        )
-                        .addField("Online", namesArray.join('\r\n') + "\u200b", true)
-                        .addField("MOTD", json.description, true)
-                        .addField("Versão", json.version.name, true);
-                        return message.reply({ embeds: [embed], ephemeral: notspam });
-                }
-            });
+}
+const embed = new MessageEmbed()
+    .setAuthor("Informações sobre " + ip)
+    .setColor(0x99ff33)
+    .setFooter(
+        "Informação pedida por " + message.member.user.username,
+        message.member.user.avatarURL
+    )
+    .setThumbnail(
+        "https://api.minetools.eu/favicon/" + ip
+    )
+    .setTimestamp()
+    .addField(
+        "Players",
+        json.players.online + "/" + json.players.max,
+        true
+    )
+    .addField("Online", namesArray.join('\r\n') + "\u200b", true)
+    .addField("MOTD", json.description, true)
+    .addField("Versão", json.version.name, true);
+return message.reply({ embeds: [embed], ephemeral: notspam });
+}
+});
 
 
 
-    
-    }
+
+}
 
 }
